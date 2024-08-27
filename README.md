@@ -12,47 +12,62 @@ This project demonstrates how to set up a secure microservices architecture usin
 ## Quick Start
 
 1. Clone the repository:
-git clone git@github.com:finnng/demo-cloud-run-vpc.git
-cd demo-cloud-run-vpc
+
+`git clone git@github.com:finnng/demo-cloud-run-vpc.git`
+
+`cd demo-cloud-run-vpc`
 
 2. Set up your GCP project:
-export PROJECT_ID=your-project-id
-gcloud config set project $PROJECT_ID
+
+`export PROJECT_ID=your-project-id`
+
+`gcloud config set project $PROJECT_ID`
 
 3. Enable necessary APIs:
-gcloud services enable run.googleapis.com artifactregistry.googleapis.com compute.googleapis.com
+
+`gcloud services enable run.googleapis.com artifactregistry.googleapis.com compute.googleapis.com`
 
 4. Create an Artifact Registry repository:
-gcloud artifacts repositories create cloud-run-demo --repository-format=docker --location=us-central1
+
+`gcloud artifacts repositories create cloud-run-demo --repository-format=docker --location=us-central1`
 
 5. Build and push Docker images:
 
 Backend
+
+```
 cd backend
 docker build -t us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-demo/backend:v1 .
 docker push us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-demo/backend:v1
 cd ..
+```
 
 Frontend
+```
 cd frontend
 docker build -t us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-demo/frontend:v1 .
 docker push us-central1-docker.pkg.dev/$PROJECT_ID/cloud-run-demo/frontend:v1
 cd ..
+```
 
 6. Configure Terraform:
+
 - Update `terraform.tfvars` with your project details.
 
 7. Deploy with Terraform:
-terraform init
-terraform apply
+
+`terraform init`
+
+`terraform apply`
 
 8. Test the deployment:
+
 - Access the frontend URL output by Terraform.
 - Verify that the backend is not publicly accessible.
 
 9. Clean up:
 
-terraform destroy
+`terraform destroy`
 
 ## Project Structure
 
